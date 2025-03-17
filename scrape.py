@@ -2,8 +2,10 @@ import requests
 from bs4 import BeautifulSoup
 
 response = requests.get('https://news.ycombinator.com/', timeout=10)
+response2 = requests.get('https://news.ycombinator.com/?p=2', timeout=10)
 
-soup = BeautifulSoup(response.content, 'html.parser')
+combined = response.text + response2.text
+soup = BeautifulSoup(combined, 'html.parser')
 
 links = soup.select(".titleline")
 subtext = soup.select(".subtext")
